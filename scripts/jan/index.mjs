@@ -1,6 +1,9 @@
-const JanuaryPage = document.createElement(
-    <div>
-        <h1>January</h1>
+import { PageBuilder } from "../pagebuilder/index.mjs";
+const articleContainer = document.createElement(`article`);
+
+articleContainer.id = "pager-content";
+
+articleContainer.innerHTML = `
         <br />
         <p>
             I don't know how to start this "Journal" thing that we are making
@@ -22,7 +25,15 @@ const JanuaryPage = document.createElement(
         <p>
             <i>Although</i>, at the same time, I was thinking about being trans.
         </p>
-    </div>
-);
+        <p>
+            I don't know how to explain it, really. Just thinking about it just gives
+            me dysphoria, it's pretty weird.
+        </p>
+        <p>
+            I always thought it was just a "phase" and that "everything would be alright".
+            Oh, I was wrong. <i>So fucking wrong</i>.
+        </p>`
 
-export default JanuaryPage;
+const Jan = new PageBuilder().setName("January").setPath("/jan").setElement(articleContainer).build();
+
+export default Jan;

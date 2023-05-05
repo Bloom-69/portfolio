@@ -5,19 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amy's Digital Journal</title>
-    <script defer src="scripts/pages.js" />
+    <script type="module" src="scripts/pages.mjs"></script>
 </head>
 <body>
     <nav>
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/jan">January</a></li>
-            <li><a href="/feb">February</a></li>
-            <li><a href="/mar">March</a></li>
-            <li><a href="/apr">April</a></li>
-            <li><a href="/may">May</a></li>
+            <li><button data-href="/">Home</button></li>
+            <li><button data-href="/jan">January</button></li>
+            <li><button data-href="/feb">February</button></li>
+            <li><button data-href="/mar">March</button></li>
+            <li><button data-href="/apr">April</button></li>
+            <li><button data-href="/may">May</button></li>
         </ul>
     </nav>
-    <div id="content" />
+    <div id="content"></div>
 </body>
 </html>
