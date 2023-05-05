@@ -1,5 +1,6 @@
-import home from "./home/index.mjs";
-import JanuaryPage from "./jan/index.mjs"
+import HomePage from "./home/index.mjs";
+import JanuaryPage from "./jan/index.mjs";
+import FebruaryPage from "./feb/index.mjs";
 
 const RendererElement = document.getElementById("content");
 
@@ -12,7 +13,8 @@ window.history.pushState = new Proxy(window.history.pushState, {
 
 const pages = [
     JanuaryPage,
-    home
+    HomePage,
+    FebruaryPage
 ]
 
 
