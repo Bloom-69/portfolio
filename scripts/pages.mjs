@@ -1,42 +1,44 @@
 import HomePage from "./home/index.mjs";
 import JanuaryPage from "./jan/index.mjs";
 import FebruaryPage from "./feb/index.mjs";
+import MarchPage from "./mar/index.mjs";
 
 const RendererElement = document.getElementById("content");
 
-window.history.pushState = new Proxy(window.history.pushState, {
-    apply: (target, thisArg, argArray) => {
-        // trigger here what you need
-        return target.apply(thisArg, argArray);
-    },
-});
+const NotFoundPage = document.createElement("div")
+NotFoundPage.id = "pager-content";
+NotFoundPage.className = "notfound";
+NotFoundPage.innerHTML = `<h1>404</h1><p>Not found :(</p>`;
 
-const pages = [
-    JanuaryPage,
-    HomePage,
-    FebruaryPage
-]
-
-
-const BUTTONS = document.getElementsByTagName("button");
-
-for (const BUTTON of BUTTONS) {
-    BUTTON.addEventListener("click", (ev) => {
-        console.log(BUTTON.dataset["href"]);
-        const data = {
-            title: BUTTON.dataset["href"] ?? "/",
-            url: BUTTON.dataset["href"] ?? "/"
-        }
-
-        for (const page of pages) {
-            if (page.path === BUTTON.dataset["href"] ?? "/") {
-                console.log("[pager] Page matches route")
-                const RemainingPagerContent = document.getElementById("pager-content");
-                if (RemainingPagerContent) RemainingPagerContent.remove();
-                RendererElement.appendChild(page.element);
-            }
-        }
-
-        window.history.pushState(data, data.title, data.url);
-    })
+const pages = {
+    "/": HomePage.element,
+    "/jan": JanuaryPage.element,
+    "/feb": FebruaryPage.element,
+    "/mar": MarchPage.element
 }
+/**
+ * Render a page
+ * @param {string} url 
+ * @returns {void}
+ */
+function navigate(url) {
+    const RemainingPagerContent = document.getElementById("pager-content");
+    if (RemainingPagerContent) RemainingPagerContent.remove();
+    RendererElement.appendChild(pages[url] || NotFoundPage);
+}
+
+document.querySelectorAll(`a`).forEach((el, index) => {
+    console.log("[debug] Registering event listener on", el.tagName, index);
+    el.addEventListener("click", e => {
+        e.preventDefault();
+        const { pathname: path } = new URL(e.target.href);
+        window.history.pushState({ path }, path, path);
+        navigate(path);
+    })
+})
+
+window.addEventListener("popstate", e => {
+    navigate(new URL(window.location.href).pathname);
+})
+
+navigate("/");
