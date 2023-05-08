@@ -32,7 +32,11 @@ articleContainer.innerHTML = `
         <p>
             I always thought it was just a "phase" and that "everything would be alright".
             Oh, I was wrong. <i>So fucking wrong</i>.
-        </p>`
+        </p>
+        <p>
+            There will be more about this on the next section. I think?
+        </p>
+    `
 
 const Jan = new PageBuilder().setName("January").setPath("/jan").setElement(articleContainer).build();
 
