@@ -29,6 +29,16 @@ const pages = {
 function navigate(url) {
     const RemainingPagerContent = document.getElementById("pager-content");
     if (RemainingPagerContent) RemainingPagerContent.remove();
+    document.querySelectorAll(`a[href^="/"]`).forEach((el, index) => {
+        console.log("[debug] Checking if href matches url\nhref:", el.href, "\nurl:", url);
+        if (new URL(el.href).pathname === url) {
+            console.log("[debug] Add 'active' to classList of link", index, "\nMatching", url);
+            el.classList.add("active");
+        } else {
+            console.log("[debug] Remove 'active' from classList of link", index, "\nNot matching", url);
+            el.classList.remove("active");
+        }
+    });
     RendererElement.appendChild(pages[url] || NotFoundPage);
 }
 
