@@ -1,7 +1,5 @@
-@import url("/styles/fonts/google-sans.css");
-
 :root {
-  --font: "Google Sans";
+  --font: 'Roboto Flex', sans-serif;
   --font-mono: "JetBrains Mono", "Fira Mono", 'Courier New', Courier, monospace;
   --background: #222;
   --foreground: #fff;
@@ -23,11 +21,12 @@ body {
     flex-direction: column;
 }
 
-p, h1, code:not(body p code) {
+p, h1, h2, code:not(body p code) {
     margin: 1rem 2rem;
 }
 
 h1,
+h2,
 p,
 b,
 i,
