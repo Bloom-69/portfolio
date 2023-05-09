@@ -4,7 +4,6 @@ const articleContainer = document.createElement(`article`);
 articleContainer.id = "pager-content";
 
 articleContainer.innerHTML = `
-        <br />
         <p>
             I don't know how to start this "Journal" thing that we are making
             for english class. But yet here we are nonetheless.
