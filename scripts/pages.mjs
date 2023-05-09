@@ -38,45 +38,30 @@ const titles = {
 function navigate(url) {
     const RemainingPagerContent = document.getElementById("pager-content");
     const RemainingHeader = document.getElementById("pager-header");
+    
     if (RemainingPagerContent) RemainingPagerContent.remove();
     if (RemainingHeader) RemainingHeader.remove();
-    document.querySelectorAll(`a[href^="/"]`).forEach((el, index) => {
-        console.log(
-            "[debug] Checking if href matches url\nhref:",
-            el.href,
-            "\nurl:",
-            url
-        );
+    
+    // Check if page is active
+    document.querySelectorAll(`a[href^="/"]`).forEach(el => {
         if (new URL(el.href).pathname === url) {
-            console.log(
-                "[debug] Add 'active' to classList of link",
-                index,
-                "\nMatching",
-                url
-            );
             el.classList.add("active");
         } else {
-            console.log(
-                "[debug] Remove 'active' from classList of link",
-                index,
-                "\nNot matching",
-                url
-            );
             el.classList.remove("active");
         }
     });
-    console.log("[debug] Adding header", titles[url]);
+    
     const Header = document.createElement("h1");
+    
     Header.innerText = titles[url];
     Header.id = "pager-header";
-    RendererElement.append(Header);
-
-    RendererElement.append(pages[url] || NotFoundPage);
+    
+    RendererElement.append(Header, pages[url] || NotFoundPage);
 }
 
-document.querySelectorAll(`a[href^="/"]`).forEach((el, index) => {
-    console.log("[debug] Registering event listener on", el.tagName, index);
-    el.addEventListener("click", (e) => {
+document.querySelectorAll(`a[href^="/"]`).forEach(el => {
+    el.addEventListener("click", e => {
+        // Remove default event handler
         e.preventDefault();
         const { pathname: path } = new URL(e.target.href);
         window.history.pushState({ path }, path, path);
@@ -84,8 +69,6 @@ document.querySelectorAll(`a[href^="/"]`).forEach((el, index) => {
     });
 });
 
-window.addEventListener("popstate", (e) => {
-    navigate(new URL(window.location.href).pathname);
-});
+window.addEventListener("popstate", () => navigate(new URL(window.location.href).pathname));
 
 navigate("/");
